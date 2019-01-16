@@ -1,20 +1,23 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+
 android {
-    compileSdkVersion 28
 
-
+    compileSdkVersion rootProject.ext.compile_sdk
+    buildToolsVersion rootProject.ext.build_tools
 
     defaultConfig {
-        applicationId "currencyconverter.presentation"
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.application_id
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion rootProject.ext.min_sdk
+        targetSdkVersion rootProject.ext.target_sdk
 
+        versionCode rootProject.ext.version_code
+        versionName rootProject.ext.version_name
+
+        testInstrumentationRunner rootProject.ext.test_runner
     }
 
     buildTypes {
@@ -27,11 +30,43 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':domain')
+    implementation project(':data')
+
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+    def presentationAndroidTestDependencies = rootProject.ext.presentationAndroidTestDependencies
+
+    implementation presentationDependencies.kotlinStdlib
+
+    implementation presentationDependencies.constraintLayout
+    implementation presentationDependencies.appCompat
+    implementation presentationDependencies.supportDesign
+
+    implementation presentationDependencies.dagger
+    implementation presentationDependencies.daggerAndroid
+    implementation presentationDependencies.daggerSupport
+    kapt presentationDependencies.daggerCompiler
+    kapt presentationDependencies.daggerProcessor
+
+    implementation presentationDependencies.retrofit
+    implementation presentationDependencies.retrofitConverter
+
+    implementation presentationDependencies.rxJava
+    implementation presentationDependencies.rxAndroid
+    implementation presentationDependencies.rxKotlin
+    implementation presentationDependencies.rxBinding
+    implementation presentationDependencies.rxBindingDesign
+
+    testImplementation presentationTestDependencies.junit
+    testImplementation presentationTestDependencies.assertj
+    testImplementation presentationTestDependencies.mockito
+    testImplementation presentationTestDependencies.robolectric
+    testImplementation presentationTestDependencies.mockitoKotlin
+
+    androidTestImplementation presentationAndroidTestDependencies.testRunner
+    androidTestImplementation presentationAndroidTestDependencies.testRules
+    androidTestImplementation presentationAndroidTestDependencies.espressoCore
+    androidTestImplementation presentationAndroidTestDependencies.espressoIntents
+    androidTestImplementation presentationAndroidTestDependencies.androidAnnotations
 }
