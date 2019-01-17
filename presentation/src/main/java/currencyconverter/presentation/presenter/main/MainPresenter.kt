@@ -1,6 +1,5 @@
 package currencyconverter.presentation.presenter.main
 
-import android.util.Log
 import currencyconverter.domain.interactor.SingleUseCase
 import currencyconverter.domain.model.Currency
 import currencyconverter.presentation.mapper.CurrencyPresentationModelMapper
@@ -33,13 +32,12 @@ class MainPresenter @Inject constructor(
             }
 
             override fun onError(e: Throwable) {
-                Log.d("myLogs", "Error = $e")
             }
         }, Unit)
     }
 
     private fun getRatio() {
-        Log.d("myLogs", "Currencies = $currenciesList")
+
     }
 
 }

@@ -1,6 +1,5 @@
 package currencyconverter.data.remote.impl
 
-import android.util.Log
 import currencyconverter.data.entity.CurrencyEntity
 import currencyconverter.data.remote.services.CurrencyService
 import currencyconverter.data.repository.currency.CurrencyRemote
@@ -15,13 +14,17 @@ class CurrencyRemoteImpl @Inject constructor(
     override fun getAllCurrencies(): Single<List<CurrencyEntity>> {
         return currencyService.downloadAllCurrencies()
             .flatMap { map ->
-                val list = map["results"]
-                if (list.isNullOrEmpty()) {
-                    Log.d("myLogs", "Error")
+                val resultMap = map["results"]
+                if (resultMap.isNullOrEmpty()) {
                     return@flatMap Single.create<List<CurrencyEntity>> { it.onError(Throwable("Empty results")) }
                 }
-                Log.d("myLogs", "Success = $list")
-                return@flatMap Single.create<List<CurrencyEntity>> { it.onSuccess(list) }
+                val currencies = mutableListOf<CurrencyEntity>()
+
+                for (currencyPair in resultMap) {
+                    currencies.add(currencyPair.value)
+                }
+
+                return@flatMap Single.create<List<CurrencyEntity>> { it.onSuccess(currencies) }
             }
     }
 
