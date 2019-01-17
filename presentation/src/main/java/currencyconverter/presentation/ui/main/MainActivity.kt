@@ -3,6 +3,7 @@ package currencyconverter.presentation.ui.main
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +14,10 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
+import android.graphics.Color.parseColor
+import android.graphics.drawable.ColorDrawable
+
+
 
 
 fun Context.mainActivityIntent() = Intent(this, MainActivity::class.java)
