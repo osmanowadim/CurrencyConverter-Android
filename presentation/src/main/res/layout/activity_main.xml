@@ -23,6 +23,7 @@
                 android:layout_toLeftOf="@+id/activity_main_btn_input"
                 android:layout_toStartOf="@+id/activity_main_btn_input"
                 android:textSize="30sp"
+                android:inputType="number"
                 android:paddingStart="10dp"
                 android:paddingLeft="10dp"
                 android:paddingEnd="10dp"
@@ -47,6 +48,7 @@
             android:id="@+id/activity_main_iv_swap"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/swap"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/activity_main_input_container"/>
@@ -86,7 +88,7 @@
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="USD"/>
+                tools:text="UAH"/>
 
     </RelativeLayout>
 
@@ -95,7 +97,37 @@
             android:layout_below="@+id/activity_main_output_container"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
+            android:background="#B8E6FF"
             android:layout_height="30dp">
+
+        <TextView
+                android:id="@+id/activity_main_tv_rate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:layout_toLeftOf="@+id/activity_main_btn_about"
+                android:layout_toStartOf="@+id/activity_main_btn_about"
+                tools:text="1 USD = 27.98 UAH"/>
+
+        <Button
+                android:id="@+id/activity_main_btn_about"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/colorAccent"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:textSize="22sp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:background="@android:drawable/ic_dialog_info"/>
 
     </RelativeLayout>
 
