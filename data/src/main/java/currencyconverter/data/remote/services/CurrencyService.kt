@@ -7,6 +7,7 @@ import retrofit2.http.GET
 interface CurrencyService {
 
     @GET("currencies")
-    fun downloadAllCurrencies(): Single<CurrencyEntity>
+    fun downloadAllCurrencies(): Single<Map<String, List<CurrencyEntity>>>
+
 
 }

@@ -16,8 +16,7 @@ import dagger.android.HasActivityInjector
 import javax.inject.Inject
 import android.graphics.Color.parseColor
 import android.graphics.drawable.ColorDrawable
-
-
+import currencyconverter.presentation.model.CurrencyPresentationModel
 
 
 fun Context.mainActivityIntent() = Intent(this, MainActivity::class.java)
@@ -56,6 +55,10 @@ class MainActivity : AppCompatActivity(), HasActivityInjector, MainContract.View
 
     override fun showNoInternetConnection() {
         //snackbar(activity_main_frame, R.string.error_internet_connection)
+    }
+
+    override fun successfulDownload(currencies: List<CurrencyPresentationModel>, ratio: String) {
+
     }
 
     private fun init() {

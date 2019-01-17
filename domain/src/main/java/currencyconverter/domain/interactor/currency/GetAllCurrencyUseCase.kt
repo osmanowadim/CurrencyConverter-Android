@@ -13,8 +13,8 @@ class GetAllCurrencyUseCase @Inject constructor(
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread,
     private val currencyRepository: CurrencyRepository
-) : SingleUseCase<Currency, Unit>(threadExecutor, postExecutionThread) {
+) : SingleUseCase<List<Currency>, Unit>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCase(params: Unit?): Single<Currency> = currencyRepository.getAllCurrencies()
+    override fun buildUseCase(params: Unit?): Single<List<Currency>> = currencyRepository.getAllCurrencies()
 
 }

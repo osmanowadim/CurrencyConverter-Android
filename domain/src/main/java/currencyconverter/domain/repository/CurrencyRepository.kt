@@ -8,6 +8,6 @@ import io.reactivex.Single
  */
 interface CurrencyRepository {
 
-    fun getAllCurrencies(): Single<Currency>
+    fun getAllCurrencies(): Single<List<Currency>>
 
 }

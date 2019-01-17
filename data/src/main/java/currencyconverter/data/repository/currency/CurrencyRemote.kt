@@ -6,6 +6,6 @@ import io.reactivex.Single
 
 interface CurrencyRemote {
 
-    fun getAllCurrencies(): Single<CurrencyEntity>
+    fun getAllCurrencies(): Single<List<CurrencyEntity>>
 
 }

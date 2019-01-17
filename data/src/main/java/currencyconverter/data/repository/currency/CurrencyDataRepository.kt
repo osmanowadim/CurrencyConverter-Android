@@ -14,10 +14,12 @@ class CurrencyDataRepository @Inject constructor(
     private val mapper: CurrencyEntityDataMapper
 ) : CurrencyRepository {
 
-    override fun getAllCurrencies(): Single<Currency> {
+    override fun getAllCurrencies(): Single<List<Currency>> {
         return factory.retrieveRemoteDataStore()
             .getAllCurrencies()
-            .map(mapper::transformFromEntity)
+            .flatMap { currenciesList ->
+                return@flatMap Single.create<List<Currency>> { it.onSuccess(currenciesList.map(mapper::transformFromEntity)) }
+            }
     }
 
 }
