@@ -1,6 +1,9 @@
 package currencyconverter.data.entity
 
+import com.google.gson.annotations.Expose
+
 
 data class RatioEntity(
-    val ratio: Pair<String, Double>
+    @Expose
+    val ratio: Map<String, Double>
 )

@@ -5,6 +5,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import currencyconverter.data.entity.mapper.CurrencyEntityDataMapper
+import currencyconverter.data.entity.mapper.RatioEntityDataMapper
 import currencyconverter.data.executor.JobExecutor
 import currencyconverter.data.remote.impl.CurrencyRemoteImpl
 import currencyconverter.data.remote.services.CurrencyService
@@ -17,9 +18,9 @@ import currencyconverter.domain.executor.PostExecutionThread
 import currencyconverter.domain.executor.ThreadExecutor
 import currencyconverter.domain.repository.CurrencyRepository
 import currencyconverter.domain.scopes.PerApplication
+import currencyconverter.presentation.UIThread
 import dagger.Module
 import dagger.Provides
-import currencyconverter.presentation.UIThread
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
@@ -49,8 +50,9 @@ open class ApplicationModule {
     @PerApplication
     fun provideCurrencyRepository(
         factory: CurrencyDataStoreFactory,
-        mapper: CurrencyEntityDataMapper
-    ): CurrencyRepository = CurrencyDataRepository(factory, mapper)
+        mapperCurrencies: CurrencyEntityDataMapper,
+        mapperRatio: RatioEntityDataMapper
+    ): CurrencyRepository = CurrencyDataRepository(factory, mapperCurrencies, mapperRatio)
 
     @Provides
     @PerApplication
