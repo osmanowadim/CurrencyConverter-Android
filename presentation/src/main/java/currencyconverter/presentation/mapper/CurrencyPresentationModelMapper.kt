@@ -7,12 +7,13 @@ import javax.inject.Inject
 
 class CurrencyPresentationModelMapper @Inject constructor() {
 
-    fun transformUserToModel(currency: Currency) = with(currency) {
+    fun transformCurrencyToPresentationModel(currency: Currency) = with(currency) {
         CurrencyPresentationModel(this.currencyName, this.currencySymbol, this.id)
     }
 
-    fun transformModelToUser(text: CurrencyPresentationModel) = with(text) {
-        Currency(this.currencyName, this.currencySymbol, this.id)
-    }
+    fun transformPresentationModelToCurrency(currencyPresentationModel: CurrencyPresentationModel) =
+        with(currencyPresentationModel) {
+            Currency(this.currencyName, this.currencySymbol, this.id)
+        }
 
 }

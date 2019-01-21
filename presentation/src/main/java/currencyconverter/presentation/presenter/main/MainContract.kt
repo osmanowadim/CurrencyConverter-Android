@@ -9,13 +9,19 @@ interface MainContract {
 
     interface View : BaseView<Presenter>, InternetDependsView {
 
-        fun successfulDownload(currencies: List<CurrencyPresentationModel>, ratio: String)
+        fun successfulDownloadCurrencies(currencies: List<CurrencyPresentationModel>)
+
+        fun changeRatio(ratio: Double)
 
     }
 
     interface Presenter : BasePresenter {
 
+        fun getCurrencies(): List<CurrencyPresentationModel>
 
+        fun getInputCurrencyName(): String
+
+        fun getOutputCurrencyName(): String
 
     }
 

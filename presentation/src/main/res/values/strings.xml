@@ -2,5 +2,6 @@
 
     <string name="app_name">Converter</string>
     <string name="splash_text">Currency Converter</string>
+    <string name="error_internet_connection">Oops! Something wrong with your connection!</string>
 
 </resources>

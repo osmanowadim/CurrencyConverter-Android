@@ -4,6 +4,7 @@ import currencyconverter.domain.interactor.currency.GetAllCurrencyUseCase
 import currencyconverter.domain.interactor.currency.GetRatioUseCase
 import currencyconverter.domain.scopes.PerActivity
 import currencyconverter.presentation.mapper.CurrencyPresentationModelMapper
+import currencyconverter.presentation.mapper.RatioPresentationModelMapper
 import currencyconverter.presentation.presenter.main.MainContract
 import currencyconverter.presentation.presenter.main.MainPresenter
 import currencyconverter.presentation.ui.main.MainActivity
@@ -23,9 +24,10 @@ open class MainActivityModule {
         view: MainContract.View,
         getAllCurrenciesUseCase: GetAllCurrencyUseCase,
         getRatioUseCase: GetRatioUseCase,
-        mapper: CurrencyPresentationModelMapper
+        mapperCurrency: CurrencyPresentationModelMapper,
+        mapperRatio: RatioPresentationModelMapper
     ): MainContract.Presenter {
-        return MainPresenter(view, getAllCurrenciesUseCase, getRatioUseCase, mapper)
+        return MainPresenter(view, getAllCurrenciesUseCase, getRatioUseCase, mapperCurrency, mapperRatio)
     }
 
 }

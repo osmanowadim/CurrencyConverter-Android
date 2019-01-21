@@ -3,20 +3,19 @@ package currencyconverter.presentation.ui.main
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import currencyconverter.presentation.R
+import currencyconverter.presentation.model.CurrencyPresentationModel
 import currencyconverter.presentation.presenter.main.MainContract
+import currencyconverter.presentation.utils.extension.snackbar
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
-import android.graphics.Color.parseColor
-import android.graphics.drawable.ColorDrawable
-import currencyconverter.presentation.model.CurrencyPresentationModel
 
 
 fun Context.mainActivityIntent() = Intent(this, MainActivity::class.java)
@@ -54,11 +53,16 @@ class MainActivity : AppCompatActivity(), HasActivityInjector, MainContract.View
     }
 
     override fun showNoInternetConnection() {
-        //snackbar(activity_main_frame, R.string.error_internet_connection)
+        snackbar(activity_main_container, R.string.error_internet_connection)
     }
 
-    override fun successfulDownload(currencies: List<CurrencyPresentationModel>, ratio: String) {
+    override fun successfulDownloadCurrencies(currencies: List<CurrencyPresentationModel>) {
 
+    }
+
+    override fun changeRatio(ratio: Double) {
+        val rateText = "1 ${mainPresenter.getInputCurrencyName()} = $ratio ${mainPresenter.getOutputCurrencyName()}"
+        activity_main_tv_rate.text = rateText
     }
 
     private fun init() {
