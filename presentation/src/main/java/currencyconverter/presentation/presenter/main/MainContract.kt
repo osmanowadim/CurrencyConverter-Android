@@ -13,15 +13,33 @@ interface MainContract {
 
         fun changeRatio(ratio: Double)
 
+        fun changeOutputValue(value: String)
+
+        fun setNewCurrencies(inputCurrencyId: String, outputCurrencyId: String)
+
+        fun getInputValue(): String
+
+        fun showLoading()
+
+        fun hideLoading()
+
+        fun showErrorDownload()
+
     }
 
     interface Presenter : BasePresenter {
 
-        fun getCurrencies(): List<CurrencyPresentationModel>
-
         fun getInputCurrencyName(): String
 
         fun getOutputCurrencyName(): String
+
+        fun setNewInputCurrencyName(id: String)
+
+        fun setNewOutputCurrencyName(id: String)
+
+        fun inputValueChanged(value: String)
+
+        fun swapCurrencies()
 
     }
 

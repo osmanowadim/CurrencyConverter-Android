@@ -1,5 +1,6 @@
 package currencyconverter.presentation.di.modules.activity
 
+import android.content.Context
 import currencyconverter.domain.interactor.currency.GetAllCurrencyUseCase
 import currencyconverter.domain.interactor.currency.GetRatioUseCase
 import currencyconverter.domain.scopes.PerActivity
@@ -22,12 +23,13 @@ open class MainActivityModule {
     @Provides
     fun providePresenter(
         view: MainContract.View,
+        context: Context,
         getAllCurrenciesUseCase: GetAllCurrencyUseCase,
         getRatioUseCase: GetRatioUseCase,
         mapperCurrency: CurrencyPresentationModelMapper,
         mapperRatio: RatioPresentationModelMapper
     ): MainContract.Presenter {
-        return MainPresenter(view, getAllCurrenciesUseCase, getRatioUseCase, mapperCurrency, mapperRatio)
+        return MainPresenter(view, context, getAllCurrenciesUseCase, getRatioUseCase, mapperCurrency, mapperRatio)
     }
 
 }

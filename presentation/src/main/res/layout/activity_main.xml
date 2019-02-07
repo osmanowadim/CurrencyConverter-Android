@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,9 +20,9 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorAccent"
                 android:textColor="@color/colorPrimary"
-                android:layout_toLeftOf="@+id/activity_main_btn_input"
-                android:layout_toStartOf="@+id/activity_main_btn_input"
+                android:layout_toStartOf="@+id/activity_main_tv_input"
                 android:textSize="30sp"
+                android:maxLength="15"
                 android:inputType="number"
                 android:paddingStart="10dp"
                 android:paddingLeft="10dp"
@@ -31,16 +31,15 @@
                 android:text="1"/>
 
         <TextView
-                android:id="@+id/activity_main_btn_input"
+                android:id="@+id/activity_main_tv_input"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:background="@color/colorAccent"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="22sp"
-                android:text="USD"/>
+                tools:text="USD"/>
 
     </RelativeLayout>
 
@@ -66,8 +65,7 @@
                 android:id="@+id/activity_main_et_output"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@+id/activity_main_btn_output"
-                android:layout_toStartOf="@+id/activity_main_btn_output"
+                android:layout_toStartOf="@+id/activity_main_tv_output"
                 android:textSize="30sp"
                 android:background="@color/colorPrimary"
                 android:textColor="@color/colorAccent"
@@ -76,19 +74,18 @@
                 android:paddingLeft="10dp"
                 android:paddingEnd="10dp"
                 android:paddingRight="10dp"
-                android:text="27.98"/>
+                tools:text="27.98"/>
 
         <TextView
-                android:id="@+id/activity_main_btn_output"
+                android:id="@+id/activity_main_tv_output"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:background="@color/colorPrimary"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
                 android:textSize="22sp"
-                android:text="UAH"/>
+                tools:text="UAH"/>
 
     </RelativeLayout>
 
@@ -111,20 +108,17 @@
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-                android:layout_toLeftOf="@+id/activity_main_btn_about"
                 android:layout_toStartOf="@+id/activity_main_btn_about"
-                android:text="1 USD = 27.98 UAH"/>
+                tools:text="1 USD = 27.98 UAH"/>
 
         <Button
                 android:id="@+id/activity_main_btn_about"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:textColor="@color/colorAccent"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
                 android:textSize="22sp"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:background="@android:drawable/ic_dialog_info"/>
