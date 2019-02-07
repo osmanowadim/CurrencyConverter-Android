@@ -12,7 +12,7 @@ import javax.inject.Inject
 class ServiceProvider @Inject constructor() {
 
     // Set timeout for connecting and reading from the network
-    private val timeout = 30L
+    private val timeout = 45L
 
     fun <S> provide(serviceClass: Class<S>): S =
             createRetrofit(createClient()).create(serviceClass)

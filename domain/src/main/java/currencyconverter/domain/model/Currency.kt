@@ -7,6 +7,6 @@ import currencyconverter.domain.interactor.Params
  */
 class Currency(
     val currencyName: String,
-    val currencySymbol: String,
+    val currencySymbol: String?,
     val id: String
 ) : Params()

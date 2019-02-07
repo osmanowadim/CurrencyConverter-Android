@@ -1,6 +1,7 @@
 package currencyconverter.domain.repository
 
 import currencyconverter.domain.model.Currency
+import currencyconverter.domain.model.Ratio
 import io.reactivex.Single
 
 /**
@@ -8,6 +9,8 @@ import io.reactivex.Single
  */
 interface CurrencyRepository {
 
-    fun getAllCurrencies(): Single<Currency>
+    fun getAllCurrencies(): Single<List<Currency>>
+
+    fun getRatio(params: String?): Single<Ratio>
 
 }

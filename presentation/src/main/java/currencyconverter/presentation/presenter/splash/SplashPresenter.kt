@@ -8,7 +8,7 @@ class SplashPresenter @Inject constructor(
 
 
     override fun start() {
-
+        view.navigateToMain()
     }
 
     override fun stop() {

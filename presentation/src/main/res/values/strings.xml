@@ -1,3 +1,17 @@
 <resources>
+
     <string name="app_name">Converter</string>
+    <string name="about_label">About</string>
+    <string name="splash_text">Currency Converter</string>
+    <string name="error_internet_connection">Oops! Something wrong with your connection!</string>
+    <string name="error_loading_currencies">Error loading currencies!</string>
+    <string name="about_text">This is a free currency converter\n\n Special thanks to -
+        https://free.currencyconverterapi.com
+    </string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_change_input_currency_title">Select input currency</string>
+    <string name="dialog_change_output_currency_title">Select output currency</string>
+    <string name="item_currency_text">%s : %s</string>
+
 </resources>
