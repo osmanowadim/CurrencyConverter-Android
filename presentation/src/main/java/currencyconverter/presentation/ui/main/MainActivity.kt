@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), HasActivityInjector, MainContract.View
     }
 
     override fun hideLoading() {
-        changeLoadingVisibility(false)
+        changeLoadingVisibility(true)
     }
 
     override fun getInputValue() = activity_main_et_input.text.toString()
