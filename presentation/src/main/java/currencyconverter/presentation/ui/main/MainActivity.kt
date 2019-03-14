@@ -61,13 +61,10 @@ class MainActivity : AppCompatActivity(), HasActivityInjector, MainContract.View
         return cm.activeNetworkInfo != null
     }
 
-    override fun showNoInternetConnection() {
-        snackbar(activity_main_container, R.string.error_internet_connection)
-    }
+    override fun showNoInternetConnection() = snackbar(activity_main_container, R.string.error_internet_connection)
 
-    override fun showErrorDownload() {
-        snackbar(activity_main_container, R.string.error_loading_currencies)
-    }
+
+    override fun showErrorDownload() = snackbar(activity_main_container, R.string.error_loading_currencies)
 
     override fun successfulDownloadCurrencies(currencies: List<CurrencyPresentationModel>) {
         this.currencies = currencies
