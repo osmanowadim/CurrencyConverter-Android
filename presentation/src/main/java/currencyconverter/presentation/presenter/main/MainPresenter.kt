@@ -14,7 +14,9 @@ import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 import kotlin.math.round
 
-
+/**
+ * Class (Presenter in terms of Model-View-Presenter pattern) that implement {@link [MainContract.Presenter]}.
+ */
 class MainPresenter @Inject constructor(
     private val view: MainContract.View,
     context: Context,
@@ -43,15 +45,23 @@ class MainPresenter @Inject constructor(
         getRatioUseCase.dispose()
     }
 
-    override fun getInputCurrencyName(): String {
-        return sharedPreferences.getString(inputCurrencyPreference, inputCurrencyDefault)?.let { it }
+    /**
+     * Get input currency name.
+     *
+     * @return input currency name {@link [String]}.
+     */
+    override fun getInputCurrencyName() =
+        sharedPreferences.getString(inputCurrencyPreference, inputCurrencyDefault)?.let { it }
             ?: inputCurrencyDefault
-    }
 
-    override fun getOutputCurrencyName(): String {
-        return sharedPreferences.getString(outputCurrencyPreference, outputCurrencyDefault)?.let { it }
+    /**
+     * Get output currency name.
+     *
+     * @return output currency name {@link [String]}.
+     */
+    override fun getOutputCurrencyName() =
+        sharedPreferences.getString(outputCurrencyPreference, outputCurrencyDefault)?.let { it }
             ?: outputCurrencyDefault
-    }
 
     override fun inputValueChanged(value: String) {
         view.changeOutputValue(calculateOutputValue(value))
@@ -88,6 +98,14 @@ class MainPresenter @Inject constructor(
         editor.apply()
     }
 
+    /**
+     * Calculate output value using {@link [roundValue]}.
+     *
+     * @param value Object to be calculated.
+     * @return {@link [String]} if valid input value
+     * else
+     * @return empty {@link [String]}
+     */
     private fun calculateOutputValue(value: String): String {
         return if (value.isNotEmpty() && currentRatio != null) {
             val newOutputValue = currentRatio!!.ratio.values.first() * value.toDouble()
@@ -95,6 +113,15 @@ class MainPresenter @Inject constructor(
         } else String()
     }
 
+    /**
+     * Round value.
+     *
+     * @param value Object to be rounded.
+     *
+     * @param decimals number of digits after comma.
+     *
+     * @return {@link [Double]} rounded value
+     */
     private fun roundValue(value: Double, decimals: Int): Double {
         var multiplier = 1.0
         repeat(decimals) { multiplier *= 10 }
@@ -102,50 +129,55 @@ class MainPresenter @Inject constructor(
     }
 
     private fun showError() {
-        view.hideLoading()
-        view.showErrorDownload()
+        view.apply {
+            hideLoading()
+            showErrorDownload()
+        }
     }
 
     private fun getAllCurrencies() {
-        view.showLoading()
-
-        if (view.isInternetAvailable()) {
-            getAllCurrencyUseCase.execute(object : DisposableSingleObserver<List<Currency>>() {
-
-                override fun onSuccess(t: List<Currency>) {
-                    currenciesList = t.map(mapperCurrency::transformCurrencyToPresentationModel)
-                    currenciesList = currenciesList.sortedWith(compareBy { it.id })
-                    getRatio()
-                }
-
-                override fun onError(e: Throwable) {
-                    showError()
-                }
-            }, Unit)
-        } else {
-            view.showErrorDownload()
+        view.apply {
+            showLoading()
+            if (!isInternetAvailable()) {
+                showErrorDownload()
+                return@getAllCurrencies
+            }
         }
+
+        getAllCurrencyUseCase.execute(object : DisposableSingleObserver<List<Currency>>() {
+            override fun onSuccess(t: List<Currency>) {
+                currenciesList = t.map(mapperCurrency::transformCurrencyToPresentationModel)
+                currenciesList = currenciesList.sortedWith(compareBy { it.id })
+                getRatio()
+            }
+
+            override fun onError(e: Throwable) {
+                showError()
+            }
+        }, Unit)
     }
 
     private fun getRatio() {
-        if (view.isInternetAvailable()) {
-            getRatioUseCase.execute(object : DisposableSingleObserver<Ratio>() {
-
-                override fun onSuccess(t: Ratio) {
-                    view.hideLoading()
-                    currentRatio = mapperRatio.transformRatioToPresentationModel(t)
-                    view.successfulDownloadCurrencies(currenciesList)
-                    view.changeRatio(currentRatio!!.ratio.values.first())
-                    view.changeOutputValue(calculateOutputValue(view.getInputValue()))
-                }
-
-                override fun onError(e: Throwable) {
-                    showError()
-                }
-            }, getRatioRequestParams(getInputCurrencyName(), getOutputCurrencyName()))
-        } else {
+        if (!view.isInternetAvailable()) {
             showError()
+            return
         }
+
+        getRatioUseCase.execute(object : DisposableSingleObserver<Ratio>() {
+            override fun onSuccess(t: Ratio) {
+                currentRatio = mapperRatio.transformRatioToPresentationModel(t)
+                view.apply {
+                    hideLoading()
+                    successfulDownloadCurrencies(currenciesList)
+                    changeRatio(currentRatio!!.ratio.values.first())
+                    changeOutputValue(calculateOutputValue(getInputValue()))
+                }
+            }
+
+            override fun onError(e: Throwable) {
+                showError()
+            }
+        }, getRatioRequestParams(getInputCurrencyName(), getOutputCurrencyName()))
     }
 
     private fun getRatioForNewCurrencies(
@@ -153,38 +185,39 @@ class MainPresenter @Inject constructor(
         outputCurrencyId: String,
         currencyState: StateOfChooseCurrencies
     ) {
-        view.showLoading()
-
-        if (view.isInternetAvailable()) {
-            getRatioUseCase.execute(object : DisposableSingleObserver<Ratio>() {
-
-                override fun onSuccess(t: Ratio) {
-                    view.hideLoading()
-                    currentRatio = mapperRatio.transformRatioToPresentationModel(t)
-                    view.setNewCurrencies(inputCurrencyId, outputCurrencyId)
-                    view.changeRatio(currentRatio!!.ratio.values.first())
-                    view.changeOutputValue(calculateOutputValue(view.getInputValue()))
-                    when (currencyState) {
-                        StateOfChooseCurrencies.INPUT_CURRENCY -> {
-                            setNewCurrency(inputCurrencyId, StateOfChooseCurrencies.INPUT_CURRENCY)
-                        }
-                        StateOfChooseCurrencies.OUTPUT_CURRENCY -> {
-                            setNewCurrency(outputCurrencyId, StateOfChooseCurrencies.OUTPUT_CURRENCY)
-                        }
-                        StateOfChooseCurrencies.BOTH_CURRENCIES -> {
-                            setNewCurrency(inputCurrencyId, StateOfChooseCurrencies.INPUT_CURRENCY)
-                            setNewCurrency(outputCurrencyId, StateOfChooseCurrencies.OUTPUT_CURRENCY)
-                        }
+        view.apply {
+            showLoading()
+            if (!isInternetAvailable()) {
+                showError()
+            }
+        }
+        getRatioUseCase.execute(object : DisposableSingleObserver<Ratio>() {
+            override fun onSuccess(t: Ratio) {
+                currentRatio = mapperRatio.transformRatioToPresentationModel(t)
+                view.apply {
+                    hideLoading()
+                    setNewCurrencies(inputCurrencyId, outputCurrencyId)
+                    changeRatio(currentRatio!!.ratio.values.first())
+                    changeOutputValue(calculateOutputValue(getInputValue()))
+                }
+                when (currencyState) {
+                    StateOfChooseCurrencies.INPUT_CURRENCY -> {
+                        setNewCurrency(inputCurrencyId, StateOfChooseCurrencies.INPUT_CURRENCY)
+                    }
+                    StateOfChooseCurrencies.OUTPUT_CURRENCY -> {
+                        setNewCurrency(outputCurrencyId, StateOfChooseCurrencies.OUTPUT_CURRENCY)
+                    }
+                    StateOfChooseCurrencies.BOTH_CURRENCIES -> {
+                        setNewCurrency(inputCurrencyId, StateOfChooseCurrencies.INPUT_CURRENCY)
+                        setNewCurrency(outputCurrencyId, StateOfChooseCurrencies.OUTPUT_CURRENCY)
                     }
                 }
+            }
 
-                override fun onError(e: Throwable) {
-                    showError()
-                }
-            }, getRatioRequestParams(inputCurrencyId, outputCurrencyId))
-        } else {
-            showError()
-        }
+            override fun onError(e: Throwable) {
+                showError()
+            }
+        }, getRatioRequestParams(inputCurrencyId, outputCurrencyId))
     }
 
     private fun getRatioRequestParams(

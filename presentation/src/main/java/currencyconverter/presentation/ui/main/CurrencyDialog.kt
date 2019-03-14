@@ -33,13 +33,15 @@ class CurrencyDialog(
         } else {
             dialog_change_currency_tv.text = context.getString(R.string.dialog_change_output_currency_title)
         }
-        dialog_change_currency_recyclerView.layoutManager = LinearLayoutManager(context)
-        dialog_change_currency_recyclerView.adapter =
+        dialog_change_currency_recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter =
                 ChangeCurrencyAdapter(currencies, currentCurrencyName) { newId, isChanged ->
                     isCurrencyChanged = isChanged
                     newCurrencyId = newId
                 }
-        dialog_change_currency_recyclerView.scrollToPosition(currencies.indexOfFirst { it.id == currentCurrencyName })
+            scrollToPosition(currencies.indexOfFirst { it.id == currentCurrencyName })
+        }
         dialog_change_currency_btn_ok.setOnClickListener {
             if (isCurrencyChanged) currencyUpdateListener(newCurrencyId)
             closeDialog()

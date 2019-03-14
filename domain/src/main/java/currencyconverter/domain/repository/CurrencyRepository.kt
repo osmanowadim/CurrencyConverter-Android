@@ -5,7 +5,7 @@ import currencyconverter.domain.model.Ratio
 import io.reactivex.Single
 
 /**
- * Interface that represents a Repository for getting {@link Currency} related data.
+ * Interface that represents a Repository for getting {@link [Currency]} related data.
  */
 interface CurrencyRepository {
 
