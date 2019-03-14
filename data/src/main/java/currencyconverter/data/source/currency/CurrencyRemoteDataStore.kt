@@ -6,7 +6,9 @@ import currencyconverter.data.repository.currency.CurrencyRemote
 import io.reactivex.Single
 import javax.inject.Inject
 
-
+/**
+ * Implementation of {@link [CurrencyDataStore]}
+ */
 class CurrencyRemoteDataStore @Inject constructor(
     private val remote: CurrencyRemote
 ) : CurrencyDataStore {
