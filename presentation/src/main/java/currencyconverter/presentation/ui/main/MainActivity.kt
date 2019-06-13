@@ -71,8 +71,12 @@ class MainActivity : AppCompatActivity(), HasActivityInjector, MainContract.View
     }
 
     override fun changeRatio(ratio: Double) {
-        val rateText = "1 ${mainPresenter.getInputCurrencyName()} = $ratio ${mainPresenter.getOutputCurrencyName()}"
-        activity_main_tv_rate.text = rateText
+        activity_main_tv_rate.text = getString(
+            R.string.ratio_currency_text,
+            mainPresenter.getInputCurrencyName(),
+            ratio,
+            mainPresenter.getOutputCurrencyName()
+        )
     }
 
     override fun changeOutputValue(value: String) {

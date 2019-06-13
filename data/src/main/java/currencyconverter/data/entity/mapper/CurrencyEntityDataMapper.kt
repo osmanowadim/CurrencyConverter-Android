@@ -3,7 +3,6 @@ package currencyconverter.data.entity.mapper
 import currencyconverter.data.entity.CurrencyEntity
 import currencyconverter.domain.interactor.Params
 import currencyconverter.domain.model.Currency
-import currencyconverter.domain.scopes.PerApplication
 import javax.inject.Inject
 
 /**
@@ -11,7 +10,6 @@ import javax.inject.Inject
  * transformFromEntity {@link [CurrencyEntity]} (in the data layer) to {@link [Currency]} in the domain layer.
  * transformToEntity {@link [Currency]} (in the domain layer) to {@link [CurrencyEntity]} in the data layer.
  */
-@PerApplication
 class CurrencyEntityDataMapper @Inject constructor() {
 
     /**

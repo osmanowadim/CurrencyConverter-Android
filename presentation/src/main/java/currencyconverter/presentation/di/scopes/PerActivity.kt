@@ -1,4 +1,4 @@
-package currencyconverter.domain.scopes
+package currencyconverter.presentation.di.scopes
 
 import javax.inject.Scope
 

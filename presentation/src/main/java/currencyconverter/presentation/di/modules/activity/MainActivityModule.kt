@@ -3,7 +3,7 @@ package currencyconverter.presentation.di.modules.activity
 import android.content.Context
 import currencyconverter.domain.interactor.currency.GetAllCurrencyUseCase
 import currencyconverter.domain.interactor.currency.GetRatioUseCase
-import currencyconverter.domain.scopes.PerActivity
+import currencyconverter.presentation.di.scopes.PerActivity
 import currencyconverter.presentation.mapper.CurrencyPresentationModelMapper
 import currencyconverter.presentation.mapper.RatioPresentationModelMapper
 import currencyconverter.presentation.presenter.main.MainContract

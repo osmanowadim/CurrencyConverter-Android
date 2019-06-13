@@ -17,7 +17,7 @@ import currencyconverter.data.source.currency.CurrencyRemoteDataStore
 import currencyconverter.domain.executor.PostExecutionThread
 import currencyconverter.domain.executor.ThreadExecutor
 import currencyconverter.domain.repository.CurrencyRepository
-import currencyconverter.domain.scopes.PerApplication
+import currencyconverter.presentation.di.scopes.PerApplication
 import currencyconverter.presentation.UIThread
 import dagger.Module
 import dagger.Provides

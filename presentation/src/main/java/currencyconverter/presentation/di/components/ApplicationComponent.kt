@@ -1,7 +1,7 @@
 package currencyconverter.presentation.di.components
 
 import android.app.Application
-import currencyconverter.domain.scopes.PerApplication
+import currencyconverter.presentation.di.scopes.PerApplication
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule

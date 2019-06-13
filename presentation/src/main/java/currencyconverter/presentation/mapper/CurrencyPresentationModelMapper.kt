@@ -1,7 +1,6 @@
 package currencyconverter.presentation.mapper
 
 import currencyconverter.domain.model.Currency
-import currencyconverter.domain.scopes.PerApplication
 import currencyconverter.presentation.model.CurrencyPresentationModel
 import javax.inject.Inject
 
@@ -10,7 +9,6 @@ import javax.inject.Inject
  * transformCurrencyToPresentationModel {@link [Currency]} (in the domain layer) to {@link [CurrencyPresentationModel]} in the presentation layer.
  * transformPresentationModelToCurrency {@link [CurrencyPresentationModel]} (in the presentation layer) to {@link [Currency]} in the domain layer.
  */
-@PerApplication
 class CurrencyPresentationModelMapper @Inject constructor() {
 
     /**
