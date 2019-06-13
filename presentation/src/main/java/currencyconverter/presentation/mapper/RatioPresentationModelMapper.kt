@@ -1,7 +1,6 @@
 package currencyconverter.presentation.mapper
 
 import currencyconverter.domain.model.Ratio
-import currencyconverter.domain.scopes.PerApplication
 import currencyconverter.presentation.model.RatioPresentationModel
 import javax.inject.Inject
 
@@ -10,7 +9,6 @@ import javax.inject.Inject
  * transformRatioToPresentationModel {@link [Ratio]} (in the domain layer) to {@link [RatioPresentationModel]} in the presentation layer.
  * transformPresentationModelToRatio {@link [RatioPresentationModel]} (in the presentation layer) to {@link [Ratio]} in the domain layer.
  */
-@PerApplication
 class RatioPresentationModelMapper @Inject constructor() {
 
     /**

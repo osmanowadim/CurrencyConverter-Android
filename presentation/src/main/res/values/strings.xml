@@ -13,5 +13,6 @@
     <string name="dialog_change_input_currency_title">Select input currency</string>
     <string name="dialog_change_output_currency_title">Select output currency</string>
     <string name="item_currency_text">%s : %s</string>
+    <string name="ratio_currency_text">1 %1$s = %2$f %3$s</string>
 
 </resources>

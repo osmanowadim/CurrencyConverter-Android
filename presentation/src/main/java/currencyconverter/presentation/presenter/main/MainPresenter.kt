@@ -147,8 +147,7 @@ class MainPresenter @Inject constructor(
 
         getAllCurrencyUseCase.execute(object : DisposableSingleObserver<List<Currency>>() {
             override fun onSuccess(t: List<Currency>) {
-                currenciesList = t.map(mapperCurrency::transformCurrencyToPresentationModel)
-                currenciesList = currenciesList.sortedWith(compareBy { it.id })
+                currenciesList = t.map(mapperCurrency::transformCurrencyToPresentationModel).sortedWith(compareBy { it.id })
                 getRatio()
             }
 
@@ -170,7 +169,7 @@ class MainPresenter @Inject constructor(
                 view.apply {
                     hideLoading()
                     successfulDownloadCurrencies(currenciesList)
-                    changeRatio(currentRatio!!.ratio.values.first())
+                    changeRatio(currentRatio?.ratio?.values?.first() ?: 0.0)
                     changeOutputValue(calculateOutputValue(getInputValue()))
                 }
             }
