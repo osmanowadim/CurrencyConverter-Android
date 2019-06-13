@@ -1,12 +1,12 @@
 package currencyconverter.presentation.di.modules.binding
 
-import currencyconverter.domain.scopes.PerActivity
 import currencyconverter.presentation.di.modules.activity.MainActivityModule
 import currencyconverter.presentation.di.modules.activity.SplashActivityModule
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import currencyconverter.presentation.di.scopes.PerActivity
 import currencyconverter.presentation.ui.main.MainActivity
 import currencyconverter.presentation.ui.splash.SplashActivity
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityBindingModule {

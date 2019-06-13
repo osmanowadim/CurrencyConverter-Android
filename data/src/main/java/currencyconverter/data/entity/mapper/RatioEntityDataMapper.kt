@@ -3,7 +3,6 @@ package currencyconverter.data.entity.mapper
 import currencyconverter.data.entity.RatioEntity
 import currencyconverter.domain.interactor.Params
 import currencyconverter.domain.model.Ratio
-import currencyconverter.domain.scopes.PerApplication
 import javax.inject.Inject
 
 /**
@@ -11,7 +10,6 @@ import javax.inject.Inject
  * transformFromEntity {@link [RatioEntity]} (in the data layer) to {@link [Ratio]} in the domain layer.
  * transformToEntity {@link [Ratio]} (in the domain layer) to {@link [RatioEntity]} in the data layer.
  */
-@PerApplication
 class RatioEntityDataMapper @Inject constructor() {
 
     /**
