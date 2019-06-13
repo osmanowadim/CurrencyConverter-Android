@@ -93,6 +93,7 @@ class MainPresenter @Inject constructor(
                 editor.putString(outputCurrencyPreference, id)
             }
             else -> {
+                println("Wrong currencyState")
             }
         }
         editor.apply()
@@ -193,13 +194,6 @@ class MainPresenter @Inject constructor(
         }
         getRatioUseCase.execute(object : DisposableSingleObserver<Ratio>() {
             override fun onSuccess(t: Ratio) {
-                currentRatio = mapperRatio.transformRatioToPresentationModel(t)
-                view.apply {
-                    hideLoading()
-                    setNewCurrencies(inputCurrencyId, outputCurrencyId)
-                    changeRatio(currentRatio!!.ratio.values.first())
-                    changeOutputValue(calculateOutputValue(getInputValue()))
-                }
                 when (currencyState) {
                     StateOfChooseCurrencies.INPUT_CURRENCY -> {
                         setNewCurrency(inputCurrencyId, StateOfChooseCurrencies.INPUT_CURRENCY)
@@ -211,6 +205,14 @@ class MainPresenter @Inject constructor(
                         setNewCurrency(inputCurrencyId, StateOfChooseCurrencies.INPUT_CURRENCY)
                         setNewCurrency(outputCurrencyId, StateOfChooseCurrencies.OUTPUT_CURRENCY)
                     }
+                }
+
+                currentRatio = mapperRatio.transformRatioToPresentationModel(t)
+                view.apply {
+                    hideLoading()
+                    setNewCurrencies(inputCurrencyId, outputCurrencyId)
+                    changeRatio(currentRatio?.ratio?.values?.first() ?: 0.0)
+                    changeOutputValue(calculateOutputValue(getInputValue()))
                 }
             }
 
